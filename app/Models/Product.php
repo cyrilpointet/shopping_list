@@ -5,21 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Team extends Model
+class Product extends Model
 {
     use HasFactory;
 
     protected $fillable = [
         'name',
+        'team_id',
     ];
 
-    public function users()
+    public function team()
     {
-        return $this->belongsToMany(User::class,  "teams_users");
-    }
-
-    public function products()
-    {
-        return $this->hasMany(Product::class);
+        return $this->belongsTo(Team::class);
     }
 }

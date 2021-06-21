@@ -21,6 +21,7 @@ class TeamController extends Controller
 
         $team->users()->attach($user->id);
         $team->users;
+        $team->products;
 
         return $team;
     }
@@ -34,6 +35,7 @@ class TeamController extends Controller
             ], 404);
         }
         $team->users;
+        $team->products;
 
         return response($team, 200);
     }
@@ -58,6 +60,7 @@ class TeamController extends Controller
         $team->users()->attach($user->id);
 
         $team->users;
+        $team->products;
 
         return $team;
     }

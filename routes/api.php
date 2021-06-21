@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\TeamController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
@@ -18,4 +19,6 @@ Route::middleware(['auth:sanctum', 'isTeamMember'])->group(function () {
     Route::get('/team/{id}', [TeamController::class, 'show']);
     Route::delete('/team/{id}', [TeamController::class, 'delete']);
     Route::post('/team/{id}/addMember', [TeamController::class, 'addMember']);
+    Route::post('/team/{id}/addProduct', [ProductController::class, 'create']);
+    Route::delete('/team/{id}/{product}', [ProductController::class, 'delete']);
 });

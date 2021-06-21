@@ -1,19 +1,21 @@
 <?php
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\TeamController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
 
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
-|
-*/
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::post('/register', [UserController::class, 'register']);
+Route::post('/login', [UserController::class, 'login']);
+
+Route::middleware('auth:sanctum')->group(function() {
+    Route::get('/user', [UserController::class, 'show']);
+    Route::post('/team', [TeamController::class, 'create']);
+});
+
+
+Route::middleware(['auth:sanctum', 'isTeamMember'])->group(function () {
+    Route::get('/team/{id}', [TeamController::class, 'show']);
+    Route::delete('/team/{id}', [TeamController::class, 'delete']);
+    Route::post('/team/{id}/addMember', [TeamController::class, 'addMember']);
 });

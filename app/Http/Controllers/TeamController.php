@@ -43,7 +43,7 @@ class TeamController extends Controller
     public function addMember($id, Request $request)
     {
         $request->validate([
-            'id' => 'required',
+            'email' => 'required',
         ]);
         $team = Team::find($id);
         if (null === $team) {
@@ -51,12 +51,24 @@ class TeamController extends Controller
                 "message" => "Groupe inconnu"
             ], 404);
         }
-        $user = User::find($request->id);
+
+        // Member existe ?
+        $user = User::where('email', $request->email)->first();
         if (null === $user) {
             return response([
                 "message" => "Membre inconnu"
             ], 404);
         }
+
+        // membre a déjà cette team ?
+        $user->teams;
+        $teams = $user->teams()->where('team_id', $id)->get();
+        if (0 !== count($teams)) {
+            return response([
+                'message' => ['Déjà membre du groupe']
+            ], 401);
+        }
+
         $team->users()->attach($user->id);
 
         $team->users;

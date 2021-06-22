@@ -44,7 +44,7 @@ export default {
         async logUser() {
             this.ajaxPending = true;
             try {
-                await this.$store.dispatch("logUser", {
+                await this.$store.dispatch("user/logUser", {
                     email: this.email,
                     password: this.password,
                 });

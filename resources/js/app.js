@@ -1,6 +1,6 @@
 import Vue from "vue";
 
-import vuetify from "./plugins/vuetify";
+import vuetify from "./Plugins/vuetify";
 import { router } from "./Router/router";
 import { store } from "./Store/store";
 import App from "./App";
@@ -14,21 +14,19 @@ new Vue({
     components: { App },
     async beforeCreate() {
         const token = localStorage.getItem("token");
-        console.log(token);
         if (token) {
             ApiConsumer.setToken(token);
             try {
-                await this.$store.dispatch("getUserWithToken");
-                await this.$store.commit("setToken", token);
-            } catch (e) {
-                console.log(e);
-                this.$store.dispatch("logout");
+                await this.$store.dispatch("user/getUserWithToken");
+                await this.$store.commit("user/setToken", token);
+            } catch {
+                this.$store.dispatch("user/logout");
                 if (this.$route.name !== "account") {
                     this.$router.push({ name: "account" });
                 }
             }
         } else {
-            this.$store.dispatch("logout");
+            this.$store.dispatch("user/logout");
             if (this.$route.name !== "account") {
                 this.$router.push({ name: "account" });
             }

@@ -1,7 +1,8 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Home from "../components/Home";
-import UserPage from "../components/UserPage";
+import Home from "../Layouts/Home";
+import UserPage from "../Layouts/UserPage";
+import TeamPage from "../Layouts/TeamPage";
 
 Vue.use(VueRouter);
 
@@ -15,6 +16,11 @@ const routes = [
         path: "/account",
         name: "account",
         component: UserPage,
+    },
+    {
+        path: "/list/:id",
+        name: "team",
+        component: TeamPage,
     },
 ];
 

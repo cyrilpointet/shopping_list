@@ -37,8 +37,8 @@
 
 <script>
 import { mapGetters, mapState } from "vuex";
-import Login from "./Login";
-import Register from "./Register";
+import Login from "../Components/Login";
+import Register from "../Components/Register";
 
 export default {
     name: "UserPage",
@@ -50,10 +50,10 @@ export default {
     },
     computed: {
         ...mapState({
-            user: (state) => state.user,
+            user: (state) => state.user.user,
         }),
         ...mapGetters({
-            isLogged: "isLogged",
+            isLogged: "user/isLogged",
         }),
     },
     methods: {

@@ -51,7 +51,7 @@ export default {
         async register() {
             this.ajaxPending = true;
             try {
-                await this.$store.dispatch("createUser", {
+                await this.$store.dispatch("user/createUser", {
                     name: this.name,
                     email: this.email,
                     password: this.password,

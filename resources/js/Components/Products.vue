@@ -7,12 +7,15 @@
             <v-btn
                 icon
                 :disabled="ajaxPending"
-                color="warning"
+                color="error"
                 @click="deleteItem(product.id)"
             >
                 <v-icon>mdi-delete</v-icon>
             </v-btn>
         </v-list-item>
+        <p v-if="team.products.length < 1" class="pa-4">
+            Aucune entrée dans la liste
+        </p>
     </v-card>
 </template>
 

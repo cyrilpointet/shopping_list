@@ -1,11 +1,11 @@
 <template>
     <div>
-        <div class="d-flex mb-4 align-center">
+        <div class="d-flex pa-2 align-center">
             <v-chip v-for="user in team.users" :key="user.id" class="mr-2">
                 {{ user.name }}
             </v-chip>
             <v-chip @click="isOpen = true">
-                <v-icon>mdi-share-variant</v-icon>
+                <v-icon>mdi-account-plus</v-icon>
             </v-chip>
         </div>
 

@@ -2,6 +2,7 @@
     <div>
         <div v-if="user !== null">
             <v-card>
+                <p class="text-center pt-2 mb-2">Mes listes</p>
                 <v-list-item
                     v-for="team in user.teams"
                     :key="team.id"

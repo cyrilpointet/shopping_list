@@ -5,6 +5,7 @@
             x-small
             @click="$router.push({ name: 'home' })"
             class="mb-4"
+            color="white"
         >
             <v-icon>mdi-chevron-left</v-icon>retour
         </v-btn>
@@ -14,20 +15,18 @@
         </div>
 
         <div v-if="user && team && !ajaxPending">
-            <div class="d-flex align-center">
-                <h2 class="text-center mb-4 flex-grow-1">{{ team.name }}</h2>
-                <v-btn
-                    icon
-                    small
-                    color="error"
-                    @click="deleteTeam"
-                    class="mb-4"
-                >
-                    <v-icon>mdi-delete</v-icon>
-                </v-btn>
-            </div>
+            <v-card class="mb-4">
+                <div class="d-flex align-center pa-2">
+                    <h2 class="text-center flex-grow-1">
+                        {{ team.name }}
+                    </h2>
+                    <v-btn icon small color="error" @click="deleteTeam">
+                        <v-icon>mdi-delete</v-icon>
+                    </v-btn>
+                </div>
+                <TeamUsersManager />
+            </v-card>
 
-            <TeamUsersManager />
             <Products />
             <ProductCreator />
         </div>

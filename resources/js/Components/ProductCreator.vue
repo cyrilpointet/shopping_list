@@ -6,10 +6,7 @@
                 label="Ajouter un produit"
                 :rules="[rules.required]"
             />
-        </v-card-text>
-        <v-card-actions>
             <v-btn
-                text
                 color="primary"
                 :disabled="!valid"
                 :loading="ajaxPending"
@@ -17,7 +14,7 @@
             >
                 Ok
             </v-btn>
-        </v-card-actions>
+        </v-card-text>
     </v-card>
 </template>
 

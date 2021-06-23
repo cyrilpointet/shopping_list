@@ -1,5 +1,11 @@
-self.addEventListener('install', () => {
+const PREFIX = "V1";
+
+self.addEventListener('install', (event) => {
     self.skipWaiting();
+    event.waitUntill((async () => {
+        const cache = await caches.open(PREFIX);
+        cache.add(new Request('offline.html'));
+    })())
 })
 
 self.addEventListener('activate', () => {
@@ -18,7 +24,8 @@ self.addEventListener('fetch', (event) => {
                     }
                     return await fetch(event.request);
                 } catch (e) {
-                    return new Response("Hello, you !");
+                    const cache = await caches.open(PREFIX);
+                    return await cache.match("/offline.html");
                 }
             })()
         )

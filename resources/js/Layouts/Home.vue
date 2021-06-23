@@ -39,9 +39,33 @@ export default {
             user: (state) => state.user.user,
         }),
     },
+    data: () => {
+        return {
+            autoUpdate: null,
+        };
+    },
+    async created() {
+        this.autoUpdate = setInterval(async () => {
+            await this.refreshUser();
+        }, 30000);
+    },
+    beforeDestroy() {
+        clearInterval(this.autoUpdate);
+    },
     methods: {
         goToTeam(id) {
             this.$router.push({ name: "team", params: { id } });
+        },
+        async refreshUser() {
+            try {
+                await this.$store.dispatch(
+                    "user/getUserWithToken",
+                    this.$route.params.id
+                );
+            } catch {
+                this.$store.dispatch("user/logout");
+                this.$router.push({ name: "account" });
+            }
         },
     },
 };

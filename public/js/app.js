@@ -3206,7 +3206,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -3288,8 +3287,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-/* harmony import */ var _Components_TeamCreator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../Components/TeamCreator */ "./resources/js/Components/TeamCreator.vue");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var _Components_TeamCreator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Components/TeamCreator */ "./resources/js/Components/TeamCreator.vue");
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -3330,13 +3337,53 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "Home",
   components: {
-    TeamCreator: _Components_TeamCreator__WEBPACK_IMPORTED_MODULE_0__.default
+    TeamCreator: _Components_TeamCreator__WEBPACK_IMPORTED_MODULE_1__.default
   },
-  computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapState)({
+  computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_2__.mapState)({
     user: function user(state) {
       return state.user.user;
     }
   })),
+  data: function data() {
+    return {
+      autoUpdate: null
+    };
+  },
+  created: function created() {
+    var _this = this;
+
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              _this.autoUpdate = setInterval( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+                return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+                  while (1) {
+                    switch (_context.prev = _context.next) {
+                      case 0:
+                        _context.next = 2;
+                        return _this.refreshUser();
+
+                      case 2:
+                      case "end":
+                        return _context.stop();
+                    }
+                  }
+                }, _callee);
+              })), 30000);
+
+            case 1:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2);
+    }))();
+  },
+  beforeDestroy: function beforeDestroy() {
+    clearInterval(this.autoUpdate);
+  },
   methods: {
     goToTeam: function goToTeam(id) {
       this.$router.push({
@@ -3345,6 +3392,40 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           id: id
         }
       });
+    },
+    refreshUser: function refreshUser() {
+      var _this2 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                _context3.prev = 0;
+                _context3.next = 3;
+                return _this2.$store.dispatch("user/getUserWithToken", _this2.$route.params.id);
+
+              case 3:
+                _context3.next = 9;
+                break;
+
+              case 5:
+                _context3.prev = 5;
+                _context3.t0 = _context3["catch"](0);
+
+                _this2.$store.dispatch("user/logout");
+
+                _this2.$router.push({
+                  name: "account"
+                });
+
+              case 9:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3, null, [[0, 5]]);
+      }))();
     }
   }
 });
@@ -3428,7 +3509,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   data: function data() {
     return {
-      ajaxPending: false
+      ajaxPending: false,
+      autoUpdate: null
     };
   },
   computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_4__.mapState)({
@@ -3442,73 +3524,122 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   created: function created() {
     var _this = this;
 
-    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
         while (1) {
-          switch (_context.prev = _context.next) {
+          switch (_context2.prev = _context2.next) {
             case 0:
               if (!(!_this.team || _this.$route.params.id !== _this.team.id)) {
-                _context.next = 11;
+                _context2.next = 5;
                 break;
               }
 
-              _context.prev = 1;
               _this.ajaxPending = true;
-              _context.next = 5;
-              return _this.$store.dispatch("team/getTeamById", _this.$route.params.id);
+              _context2.next = 4;
+              return _this.refreshTeam();
+
+            case 4:
+              _this.ajaxPending = false;
 
             case 5:
-              _this.ajaxPending = false;
-              _context.next = 11;
-              break;
+              _this.autoUpdate = setInterval( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+                return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+                  while (1) {
+                    switch (_context.prev = _context.next) {
+                      case 0:
+                        if (_this.ajaxPending) {
+                          _context.next = 3;
+                          break;
+                        }
 
-            case 8:
-              _context.prev = 8;
-              _context.t0 = _context["catch"](1);
+                        _context.next = 3;
+                        return _this.refreshTeam();
 
-              _this.$router.push({
-                name: "home"
-              });
+                      case 3:
+                      case "end":
+                        return _context.stop();
+                    }
+                  }
+                }, _callee);
+              })), 30000);
 
-            case 11:
+            case 6:
             case "end":
-              return _context.stop();
+              return _context2.stop();
           }
         }
-      }, _callee, null, [[1, 8]]);
+      }, _callee2);
     }))();
   },
+  beforeDestroy: function beforeDestroy() {
+    clearInterval(this.autoUpdate);
+  },
   methods: {
-    deleteTeam: function deleteTeam() {
+    refreshTeam: function refreshTeam() {
       var _this2 = this;
 
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
-        var event;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
           while (1) {
-            switch (_context2.prev = _context2.next) {
+            switch (_context3.prev = _context3.next) {
               case 0:
-                _context2.prev = 0;
-                _this2.ajaxPending = true;
-                _context2.next = 4;
-                return _this2.$store.dispatch("team/deleteTeam", _this2.team.id);
+                _context3.prev = 0;
+                _context3.next = 3;
+                return _this2.$store.dispatch("team/getTeamById", _this2.$route.params.id);
 
-              case 4:
-                _context2.next = 6;
-                return _this2.$store.dispatch("user/getUserWithToken");
+              case 3:
+                _context3.next = 10;
+                break;
 
-              case 6:
+              case 5:
+                _context3.prev = 5;
+                _context3.t0 = _context3["catch"](0);
+                _context3.next = 9;
+                return _this2.$store.dispatch("user/getUserWithToken", _this2.$route.params.id);
+
+              case 9:
                 _this2.$router.push({
                   name: "home"
                 });
 
-                _context2.next = 14;
+              case 10:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3, null, [[0, 5]]);
+      }))();
+    },
+    deleteTeam: function deleteTeam() {
+      var _this3 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4() {
+        var event;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                _context4.prev = 0;
+                _this3.ajaxPending = true;
+                _context4.next = 4;
+                return _this3.$store.dispatch("team/deleteTeam", _this3.team.id);
+
+              case 4:
+                _context4.next = 6;
+                return _this3.$store.dispatch("user/getUserWithToken");
+
+              case 6:
+                _this3.$router.push({
+                  name: "home"
+                });
+
+                _context4.next = 14;
                 break;
 
               case 9:
-                _context2.prev = 9;
-                _context2.t0 = _context2["catch"](0);
-                _this2.ajaxPending = false;
+                _context4.prev = 9;
+                _context4.t0 = _context4["catch"](0);
+                _this3.ajaxPending = false;
                 event = new CustomEvent("displayMsg", {
                   detail: {
                     text: "Erreur",
@@ -3519,10 +3650,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
               case 14:
               case "end":
-                return _context2.stop();
+                return _context4.stop();
             }
           }
-        }, _callee2, null, [[0, 9]]);
+        }, _callee4, null, [[0, 9]]);
       }))();
     }
   }
@@ -3649,7 +3780,7 @@ var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBP
 var ___CSS_LOADER_URL_REPLACEMENT_0___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1___default()(_assets_background_mobile_jpg__WEBPACK_IMPORTED_MODULE_2__.default);
 var ___CSS_LOADER_URL_REPLACEMENT_1___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1___default()(_assets_background_desktop_jpg__WEBPACK_IMPORTED_MODULE_3__.default);
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".mainView {\n  background: linear-gradient(rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.15)), url(" + ___CSS_LOADER_URL_REPLACEMENT_0___ + ") no-repeat center !important;\n  background-size: cover !important;\n}\n@media (orientation: landscape) {\n.mainView {\n    background: linear-gradient(rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.15)), url(" + ___CSS_LOADER_URL_REPLACEMENT_1___ + ") no-repeat center !important;\n    background-size: cover !important;\n}\n}\n.fade-enter-active,\n.fade-leave-active {\n  transition: all 0.2s;\n}\n.fade-enter, .fade-leave-to {\n  transform: scaleX(0);\n  opacity: 0;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".mainView {\n  background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url(" + ___CSS_LOADER_URL_REPLACEMENT_0___ + ") no-repeat center !important;\n  background-size: cover !important;\n}\n@media (orientation: landscape) {\n.mainView {\n    background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url(" + ___CSS_LOADER_URL_REPLACEMENT_1___ + ") no-repeat center !important;\n    background-size: cover !important;\n}\n}\n.fade-enter-active,\n.fade-leave-active {\n  transition: all 0.2s;\n}\n.fade-enter, .fade-leave-to {\n  transform: scaleX(0);\n  opacity: 0;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -6766,51 +6897,46 @@ var render = function() {
           }
         },
         [
-          _c(
-            "v-card",
-            [
-              _c(
-                "v-card-text",
-                [
-                  _c("v-text-field", {
+          _c("v-card", [
+            _c(
+              "div",
+              { staticClass: "pa-2" },
+              [
+                _c("h4", { staticClass: "text-center" }, [
+                  _vm._v("Rechercher un membre")
+                ]),
+                _vm._v(" "),
+                _c("v-text-field", {
+                  attrs: {
+                    label: "Email",
+                    rules: [_vm.rules.required, _vm.rules.email]
+                  },
+                  model: {
+                    value: _vm.email,
+                    callback: function($$v) {
+                      _vm.email = $$v
+                    },
+                    expression: "email"
+                  }
+                }),
+                _vm._v(" "),
+                _c(
+                  "v-btn",
+                  {
                     attrs: {
-                      label: "Email",
-                      rules: [_vm.rules.required, _vm.rules.email]
+                      text: "",
+                      color: "primary",
+                      disabled: !_vm.valid,
+                      loading: _vm.ajaxPending
                     },
-                    model: {
-                      value: _vm.email,
-                      callback: function($$v) {
-                        _vm.email = $$v
-                      },
-                      expression: "email"
-                    }
-                  })
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "v-card-actions",
-                [
-                  _c(
-                    "v-btn",
-                    {
-                      attrs: {
-                        text: "",
-                        color: "primary",
-                        disabled: !_vm.valid,
-                        loading: _vm.ajaxPending
-                      },
-                      on: { click: _vm.addMember }
-                    },
-                    [_vm._v("\n                    ok\n                ")]
-                  )
-                ],
-                1
-              )
-            ],
-            1
-          )
+                    on: { click: _vm.addMember }
+                  },
+                  [_vm._v("\n                    ok\n                ")]
+                )
+              ],
+              1
+            )
+          ])
         ],
         1
       )

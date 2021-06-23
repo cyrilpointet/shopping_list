@@ -13,7 +13,6 @@ self.addEventListener('activate', () => {
 })
 
 self.addEventListener('fetch', (event) => {
-    console.log(event.request.url, event.request.mode);
     if (event.request.mode === 'navigate') {
         event.respondWith(
             (async () => {

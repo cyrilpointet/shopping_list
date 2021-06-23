@@ -10,7 +10,6 @@
         <link rel="manifest" href="/manifest.json">
         <script>
             if ('serviceWorker' in navigator) {
-                console.log('pouet');
                 window.addEventListener('load', function() {
                     navigator.serviceWorker.register('/sw.js');
                 });

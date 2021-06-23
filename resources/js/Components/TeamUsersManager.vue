@@ -11,14 +11,13 @@
 
         <v-dialog v-model="isOpen" width="500">
             <v-card>
-                <v-card-text>
+                <div class="pa-2">
+                    <h4 class="text-center">Rechercher un membre</h4>
                     <v-text-field
                         v-model="email"
                         label="Email"
                         :rules="[rules.required, rules.email]"
                     />
-                </v-card-text>
-                <v-card-actions>
                     <v-btn
                         text
                         color="primary"
@@ -28,7 +27,7 @@
                     >
                         ok
                     </v-btn>
-                </v-card-actions>
+                </div>
             </v-card>
         </v-dialog>
     </div>

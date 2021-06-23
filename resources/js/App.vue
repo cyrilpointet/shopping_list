@@ -46,11 +46,11 @@ export default {
 
 <style lang="scss">
 .mainView {
-    background: linear-gradient(rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.15)),
+    background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
         url("../assets/background_mobile.jpg") no-repeat center !important;
     background-size: cover !important;
     @media (orientation: landscape) {
-        background: linear-gradient(rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.15)),
+        background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
             url("../assets/background_desktop.jpg") no-repeat center !important;
         background-size: cover !important;
     }

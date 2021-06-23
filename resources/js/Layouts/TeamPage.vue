@@ -45,6 +45,7 @@ export default {
     data: () => {
         return {
             ajaxPending: false,
+            autoUpdate: null,
         };
     },
     computed: {
@@ -55,19 +56,34 @@ export default {
     },
     async created() {
         if (!this.team || this.$route.params.id !== this.team.id) {
+            this.ajaxPending = true;
+            await this.refreshTeam();
+            this.ajaxPending = false;
+        }
+        this.autoUpdate = setInterval(async () => {
+            if (!this.ajaxPending) {
+                await this.refreshTeam();
+            }
+        }, 30000);
+    },
+    beforeDestroy() {
+        clearInterval(this.autoUpdate);
+    },
+    methods: {
+        async refreshTeam() {
             try {
-                this.ajaxPending = true;
                 await this.$store.dispatch(
                     "team/getTeamById",
                     this.$route.params.id
                 );
-                this.ajaxPending = false;
             } catch {
+                await this.$store.dispatch(
+                    "user/getUserWithToken",
+                    this.$route.params.id
+                );
                 this.$router.push({ name: "home" });
             }
-        }
-    },
-    methods: {
+        },
         async deleteTeam() {
             try {
                 this.ajaxPending = true;

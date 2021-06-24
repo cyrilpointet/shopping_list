@@ -57,6 +57,8 @@ export default {
                     password: this.password,
                 });
                 this.ajaxPending = false;
+                const event = new CustomEvent("userLogged");
+                document.dispatchEvent(event);
                 if (this.$route.name !== "home") {
                     this.$router.push({ name: "home" });
                 }

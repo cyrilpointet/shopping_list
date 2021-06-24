@@ -38,7 +38,11 @@ export default {
     methods: {
         logout() {
             this.$store.dispatch("user/logout");
-            this.$router.push({ name: "account" });
+            const event = new CustomEvent("userUnlogged");
+            document.dispatchEvent(event);
+            if (this.$route.name !== "account") {
+                this.$router.push({ name: "account" });
+            }
         },
     },
 };

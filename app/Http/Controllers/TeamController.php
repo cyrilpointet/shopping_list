@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Team;
 use App\Models\User;
+use App\Notifications\PushNotif;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Notification;
 
 class TeamController extends Controller
 {
@@ -69,6 +71,10 @@ class TeamController extends Controller
             ], 401);
         }
 
+        $creator = $request->user();
+        Notification::send($user, new PushNotif(
+            'Teamlist: nouvelle liste',
+            $creator->name . ' vous a ajouté à la liste ' . $team->name));
         $team->users()->attach($user->id);
 
         $team->users;
@@ -77,16 +83,30 @@ class TeamController extends Controller
         return $team;
     }
 
-    public function delete($id)
+    public function delete($id, Request $request)
     {
-        $group = Team::find($id);
-        if (null === $group) {
+        $team = Team::find($id);
+        if (null === $team) {
             return response([
                 "message" => "Groupe inconnu"
             ], 404);
         }
 
-        $group->delete();
+        $team->users;
+
+        $user = $request->user();
+        $otherUsers = [];
+        foreach ($team->users as $value){
+            if ($value->id !== $user->id) {
+                $otherUsers[] = $value;
+            }
+        }
+
+        Notification::send($otherUsers,new PushNotif(
+            'Teamlist: liste supprimée',
+            $user->name . ' a supprimé la liste ' . $team->name));
+
+        $team->delete();
         return response([
             'message' => 'Groupe supprimé'
         ], 200);

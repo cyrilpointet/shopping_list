@@ -2487,9 +2487,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   methods: {
     logout: function logout() {
       this.$store.dispatch("user/logout");
-      this.$router.push({
-        name: "account"
-      });
+      var event = new CustomEvent("userUnlogged");
+      document.dispatchEvent(event);
+
+      if (this.$route.name !== "account") {
+        this.$router.push({
+          name: "account"
+        });
+      }
     }
   }
 });
@@ -2625,7 +2630,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _this = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
-        var event;
+        var event, _event;
+
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
@@ -2640,6 +2646,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               case 4:
                 _this.ajaxPending = false;
+                event = new CustomEvent("userLogged");
+                document.dispatchEvent(event);
 
                 if (_this.$route.name !== "home") {
                   _this.$router.push({
@@ -2647,27 +2655,27 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   });
                 }
 
-                _context.next = 13;
+                _context.next = 15;
                 break;
 
-              case 8:
-                _context.prev = 8;
+              case 10:
+                _context.prev = 10;
                 _context.t0 = _context["catch"](1);
                 _this.ajaxPending = false;
-                event = new CustomEvent("displayMsg", {
+                _event = new CustomEvent("displayMsg", {
                   detail: {
                     text: "Mauvais identifiant / Mot de passe",
                     color: "error"
                   }
                 });
-                document.dispatchEvent(event);
+                document.dispatchEvent(_event);
 
-              case 13:
+              case 15:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[1, 8]]);
+        }, _callee, null, [[1, 10]]);
       }))();
     }
   }
@@ -2998,7 +3006,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _this = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
-        var event;
+        var event, _event;
+
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
@@ -3014,6 +3023,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               case 4:
                 _this.ajaxPending = false;
+                event = new CustomEvent("userLogged");
+                document.dispatchEvent(event);
 
                 if (_this.$route.name !== "home") {
                   _this.$router.push({
@@ -3021,27 +3032,27 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   });
                 }
 
-                _context.next = 13;
+                _context.next = 15;
                 break;
 
-              case 8:
-                _context.prev = 8;
+              case 10:
+                _context.prev = 10;
                 _context.t0 = _context["catch"](1);
                 _this.ajaxPending = false;
-                event = new CustomEvent("displayMsg", {
+                _event = new CustomEvent("displayMsg", {
                   detail: {
                     text: "Cet email est déjà utilisé",
                     color: "error"
                   }
                 });
-                document.dispatchEvent(event);
+                document.dispatchEvent(_event);
 
-              case 13:
+              case 15:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[1, 8]]);
+        }, _callee, null, [[1, 10]]);
       }))();
     }
   }
@@ -69293,6 +69304,11 @@ new vue__WEBPACK_IMPORTED_MODULE_6__.default({
   components: {
     App: _App__WEBPACK_IMPORTED_MODULE_4__.default
   },
+  data: function data() {
+    return {
+      swRegistration: null
+    };
+  },
   beforeCreate: function beforeCreate() {
     var _this = this;
 
@@ -69303,42 +69319,37 @@ new vue__WEBPACK_IMPORTED_MODULE_6__.default({
           switch (_context.prev = _context.next) {
             case 0:
               token = localStorage.getItem("token");
+              document.addEventListener("userLogged", function () {
+                _this.initSW();
+              });
+              document.addEventListener("userUnlogged", function () {
+                _this.unsubscribeUser();
+              });
 
               if (!token) {
-                _context.next = 16;
+                _context.next = 19;
                 break;
               }
 
               _Services_ApiConsumer__WEBPACK_IMPORTED_MODULE_5__.ApiConsumer.setToken(token);
-              _context.prev = 3;
-              _context.next = 6;
+              _context.prev = 5;
+              _context.next = 8;
               return _this.$store.dispatch("user/getUserWithToken");
 
-            case 6:
-              _context.next = 8;
+            case 8:
+              _context.next = 10;
               return _this.$store.commit("user/setToken", token);
 
-            case 8:
-              _context.next = 14;
-              break;
-
             case 10:
-              _context.prev = 10;
-              _context.t0 = _context["catch"](3);
+              _this.initSW();
 
-              _this.$store.dispatch("user/logout");
-
-              if (_this.$route.name !== "account") {
-                _this.$router.push({
-                  name: "account"
-                });
-              }
-
-            case 14:
-              _context.next = 18;
+              _context.next = 17;
               break;
 
-            case 16:
+            case 13:
+              _context.prev = 13;
+              _context.t0 = _context["catch"](5);
+
               _this.$store.dispatch("user/logout");
 
               if (_this.$route.name !== "account") {
@@ -69347,13 +69358,97 @@ new vue__WEBPACK_IMPORTED_MODULE_6__.default({
                 });
               }
 
-            case 18:
+            case 17:
+              _context.next = 21;
+              break;
+
+            case 19:
+              _this.$store.dispatch("user/logout");
+
+              if (_this.$route.name !== "account") {
+                _this.$router.push({
+                  name: "account"
+                });
+              }
+
+            case 21:
             case "end":
               return _context.stop();
           }
         }
-      }, _callee, null, [[3, 10]]);
+      }, _callee, null, [[5, 13]]);
     }))();
+  },
+  methods: {
+    initSW: function initSW() {
+      var _this2 = this;
+
+      if (!("serviceWorker" in navigator) || !("PushManager" in window)) {
+        return;
+      }
+
+      navigator.serviceWorker.register("../sw.js").then(function (swReg) {
+        _this2.swRegistration = swReg;
+
+        _this2.initPush();
+      })["catch"](function (err) {
+        console.log(err);
+      });
+    },
+    initPush: function initPush() {
+      var _this3 = this;
+
+      if (!navigator.serviceWorker.ready) {
+        return;
+      }
+
+      Notification.requestPermission().then(function (permissionResult) {
+        if (permissionResult !== "granted") {
+          throw new Error("We weren't granted permission.");
+        }
+
+        _this3.subscribeUser();
+      });
+    },
+    subscribeUser: function subscribeUser() {
+      var _this4 = this;
+
+      navigator.serviceWorker.ready.then(function (registration) {
+        var subscribeOptions = {
+          userVisibleOnly: true,
+          applicationServerKey: _this4.urlBase64ToUint8Array("BDhlcHd7MqGOXGT4OPUeeFNN1yXWVlmSfckh-3hXJs0uIiacJY4ub_opK13W-Bc5_DMOPupV7QmkHmCapEcw2No")
+        };
+        return registration.pushManager.subscribe(subscribeOptions);
+      }).then(function (pushSubscription) {
+        _this4.storePushSubscription(pushSubscription);
+      });
+    },
+    urlBase64ToUint8Array: function urlBase64ToUint8Array(base64String) {
+      var padding = "=".repeat((4 - base64String.length % 4) % 4);
+      var base64 = (base64String + padding).replace(/-/g, "+").replace(/_/g, "/");
+      var rawData = window.atob(base64);
+      var outputArray = new Uint8Array(rawData.length);
+
+      for (var i = 0; i < rawData.length; ++i) {
+        outputArray[i] = rawData.charCodeAt(i);
+      }
+
+      return outputArray;
+    },
+    storePushSubscription: function storePushSubscription(pushSubscription) {
+      _Services_ApiConsumer__WEBPACK_IMPORTED_MODULE_5__.ApiConsumer.post("user/storePushEndpoint", pushSubscription).then(function (resp) {
+        console.log(resp);
+      });
+    },
+    unsubscribeUser: function unsubscribeUser() {
+      this.swRegistration.pushManager.getSubscription().then(function (subscription) {
+        if (subscription) {
+          subscription.unsubscribe();
+        }
+      })["catch"](function (error) {
+        console.log("Error unsubscribing", error);
+      });
+    }
   }
 });
 })();

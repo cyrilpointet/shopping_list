@@ -12,6 +12,7 @@ Route::post('/login', [UserController::class, 'login']);
 Route::middleware('auth:sanctum')->group(function() {
     Route::get('/user', [UserController::class, 'show']);
     Route::post('/team', [TeamController::class, 'create']);
+    Route::post('user/storePushEndpoint', [UserController::class, 'storePushEndpoint']);
 });
 
 

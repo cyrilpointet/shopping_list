@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Team;
-
+use Illuminate\Support\Facades\Notification;
+use App\Notifications\PushNotif;
 
 class ProductController extends Controller
 {
@@ -30,6 +32,17 @@ class ProductController extends Controller
         $team->users;
         $team->products;
 
+        $user = $request->user();
+        $otherUsers = [];
+        foreach ($team->users as $value){
+            if ($value->id !== $user->id) {
+                $otherUsers[] = $value;
+            }
+        }
+
+        Notification::send($otherUsers,new PushNotif(
+            'Teamlist: liste mise à jour',
+            $user->name . 'a ajouté un produit à la liste ' . $team->name));
         return $team;
     }
 

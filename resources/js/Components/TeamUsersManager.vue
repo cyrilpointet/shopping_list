@@ -66,13 +66,14 @@ export default {
                 this.ajaxPending = false;
                 this.isOpen = false;
                 this.email = "";
-            } catch {
+            } catch (e) {
                 this.ajaxPending = false;
                 this.isOpen = false;
                 this.email = "";
+                console.log(e);
                 const event = new CustomEvent("displayMsg", {
                     detail: {
-                        text: "membre inexistant ou déjà présent",
+                        text: e.message,
                         color: "error",
                     },
                 });

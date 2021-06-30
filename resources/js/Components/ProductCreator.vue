@@ -6,12 +6,13 @@
                     v-model="name"
                     label="Ajouter un produit"
                     :rules="[rules.required]"
+                    @keyup.enter="addProduct"
                 />
                 <v-btn
                     color="primary"
                     :disabled="!valid"
                     :loading="ajaxPending"
-                    @click="createTeam"
+                    @click="addProduct"
                 >
                     Ok
                 </v-btn>
@@ -40,7 +41,7 @@ export default {
         }),
     },
     methods: {
-        async createTeam() {
+        async addProduct() {
             this.ajaxPending = true;
             try {
                 await this.$store.dispatch("team/addProduct", {

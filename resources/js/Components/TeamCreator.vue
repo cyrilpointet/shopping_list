@@ -5,6 +5,7 @@
                 v-model="name"
                 label="Créer une nouvelle liste"
                 :rules="[rules.required]"
+                @keyup.enter="createTeam"
             />
             <v-btn
                 color="primary"

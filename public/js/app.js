@@ -2775,6 +2775,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -2793,7 +2794,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
   })),
   methods: {
-    createTeam: function createTeam() {
+    addProduct: function addProduct() {
       var _this = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
@@ -3084,6 +3085,7 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+//
 //
 //
 //
@@ -6625,6 +6627,17 @@ var render = function() {
                   label: "Ajouter un produit",
                   rules: [_vm.rules.required]
                 },
+                on: {
+                  keyup: function($event) {
+                    if (
+                      !$event.type.indexOf("key") &&
+                      _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
+                    ) {
+                      return null
+                    }
+                    return _vm.addProduct.apply(null, arguments)
+                  }
+                },
                 model: {
                   value: _vm.name,
                   callback: function($$v) {
@@ -6642,7 +6655,7 @@ var render = function() {
                     disabled: !_vm.valid,
                     loading: _vm.ajaxPending
                   },
-                  on: { click: _vm.createTeam }
+                  on: { click: _vm.addProduct }
                 },
                 [_vm._v("\n                Ok\n            ")]
               )
@@ -6861,6 +6874,17 @@ var render = function() {
             attrs: {
               label: "Créer une nouvelle liste",
               rules: [_vm.rules.required]
+            },
+            on: {
+              keyup: function($event) {
+                if (
+                  !$event.type.indexOf("key") &&
+                  _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
+                ) {
+                  return null
+                }
+                return _vm.createTeam.apply(null, arguments)
+              }
             },
             model: {
               value: _vm.name,

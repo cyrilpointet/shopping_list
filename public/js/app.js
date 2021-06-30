@@ -3267,7 +3267,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 _this.ajaxPending = false;
                 _this.isOpen = false;
                 _this.email = "";
-                _context.next = 17;
+                _context.next = 16;
                 break;
 
               case 9:
@@ -3276,16 +3276,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 _this.ajaxPending = false;
                 _this.isOpen = false;
                 _this.email = "";
-                console.log(_context.t0);
                 event = new CustomEvent("displayMsg", {
                   detail: {
-                    text: _context.t0.message,
+                    text: "membre inexistant ou déjà présent",
                     color: "error"
                   }
                 });
                 document.dispatchEvent(event);
 
-              case 17:
+              case 16:
               case "end":
                 return _context.stop();
             }

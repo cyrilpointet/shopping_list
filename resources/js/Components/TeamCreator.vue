@@ -1,18 +1,20 @@
 <template>
     <div>
-        <v-text-field
-            v-model="name"
-            label="Créer une nouvelle liste"
-            :rules="[rules.required]"
-        />
-        <v-btn
-            color="primary"
-            :disabled="!valid"
-            :loading="ajaxPending"
-            @click="createTeam"
-        >
-            Créer
-        </v-btn>
+        <v-form ref="form" v-model="valid">
+            <v-text-field
+                v-model="name"
+                label="Créer une nouvelle liste"
+                :rules="[rules.required]"
+            />
+            <v-btn
+                color="primary"
+                :disabled="!valid"
+                :loading="ajaxPending"
+                @click="createTeam"
+            >
+                Créer
+            </v-btn>
+        </v-form>
     </div>
 </template>
 

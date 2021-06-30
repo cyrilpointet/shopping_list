@@ -2468,6 +2468,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
 
 
 
@@ -2751,6 +2753,8 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
+//
 //
 //
 //
@@ -3098,6 +3102,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "TeamCreator",
@@ -3182,6 +3188,8 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
+//
 //
 //
 //
@@ -6316,7 +6324,11 @@ var render = function() {
             "v-app-bar",
             { attrs: { color: "primary", dark: "" } },
             [
-              _c("v-toolbar-title", [_vm._v("Team List")]),
+              _c("v-toolbar-title", [
+                _vm._v(
+                  _vm._s(_vm.user ? _vm.user.name + "'s lists" : "Team List")
+                )
+              ]),
               _vm._v(" "),
               _c("v-spacer"),
               _vm._v(" "),
@@ -6595,28 +6607,47 @@ var render = function() {
       _c(
         "v-card-text",
         [
-          _c("v-text-field", {
-            attrs: { label: "Ajouter un produit", rules: [_vm.rules.required] },
-            model: {
-              value: _vm.name,
-              callback: function($$v) {
-                _vm.name = $$v
-              },
-              expression: "name"
-            }
-          }),
-          _vm._v(" "),
           _c(
-            "v-btn",
+            "v-form",
             {
-              attrs: {
-                color: "primary",
-                disabled: !_vm.valid,
-                loading: _vm.ajaxPending
-              },
-              on: { click: _vm.createTeam }
+              ref: "form",
+              model: {
+                value: _vm.valid,
+                callback: function($$v) {
+                  _vm.valid = $$v
+                },
+                expression: "valid"
+              }
             },
-            [_vm._v("\n            Ok\n        ")]
+            [
+              _c("v-text-field", {
+                attrs: {
+                  label: "Ajouter un produit",
+                  rules: [_vm.rules.required]
+                },
+                model: {
+                  value: _vm.name,
+                  callback: function($$v) {
+                    _vm.name = $$v
+                  },
+                  expression: "name"
+                }
+              }),
+              _vm._v(" "),
+              _c(
+                "v-btn",
+                {
+                  attrs: {
+                    color: "primary",
+                    disabled: !_vm.valid,
+                    loading: _vm.ajaxPending
+                  },
+                  on: { click: _vm.createTeam }
+                },
+                [_vm._v("\n                Ok\n            ")]
+              )
+            ],
+            1
           )
         ],
         1
@@ -6813,31 +6844,47 @@ var render = function() {
   return _c(
     "div",
     [
-      _c("v-text-field", {
-        attrs: {
-          label: "Créer une nouvelle liste",
-          rules: [_vm.rules.required]
-        },
-        model: {
-          value: _vm.name,
-          callback: function($$v) {
-            _vm.name = $$v
-          },
-          expression: "name"
-        }
-      }),
-      _vm._v(" "),
       _c(
-        "v-btn",
+        "v-form",
         {
-          attrs: {
-            color: "primary",
-            disabled: !_vm.valid,
-            loading: _vm.ajaxPending
-          },
-          on: { click: _vm.createTeam }
+          ref: "form",
+          model: {
+            value: _vm.valid,
+            callback: function($$v) {
+              _vm.valid = $$v
+            },
+            expression: "valid"
+          }
         },
-        [_vm._v("\n        Créer\n    ")]
+        [
+          _c("v-text-field", {
+            attrs: {
+              label: "Créer une nouvelle liste",
+              rules: [_vm.rules.required]
+            },
+            model: {
+              value: _vm.name,
+              callback: function($$v) {
+                _vm.name = $$v
+              },
+              expression: "name"
+            }
+          }),
+          _vm._v(" "),
+          _c(
+            "v-btn",
+            {
+              attrs: {
+                color: "primary",
+                disabled: !_vm.valid,
+                loading: _vm.ajaxPending
+              },
+              on: { click: _vm.createTeam }
+            },
+            [_vm._v("\n            Créer\n        ")]
+          )
+        ],
+        1
       )
     ],
     1
@@ -6908,46 +6955,69 @@ var render = function() {
           }
         },
         [
-          _c("v-card", [
-            _c(
-              "div",
-              { staticClass: "pa-2" },
-              [
-                _c("h4", { staticClass: "text-center" }, [
-                  _vm._v("Rechercher un membre")
-                ]),
-                _vm._v(" "),
-                _c("v-text-field", {
-                  attrs: {
-                    label: "Email",
-                    rules: [_vm.rules.required, _vm.rules.email]
-                  },
+          _c(
+            "v-card",
+            [
+              _c(
+                "v-form",
+                {
+                  ref: "form",
                   model: {
-                    value: _vm.email,
+                    value: _vm.valid,
                     callback: function($$v) {
-                      _vm.email = $$v
+                      _vm.valid = $$v
                     },
-                    expression: "email"
+                    expression: "valid"
                   }
-                }),
-                _vm._v(" "),
-                _c(
-                  "v-btn",
-                  {
-                    attrs: {
-                      text: "",
-                      color: "primary",
-                      disabled: !_vm.valid,
-                      loading: _vm.ajaxPending
-                    },
-                    on: { click: _vm.addMember }
-                  },
-                  [_vm._v("\n                    ok\n                ")]
-                )
-              ],
-              1
-            )
-          ])
+                },
+                [
+                  _c(
+                    "div",
+                    { staticClass: "pa-2" },
+                    [
+                      _c("h4", { staticClass: "text-center" }, [
+                        _vm._v("Ajouter un membre")
+                      ]),
+                      _vm._v(" "),
+                      _c("v-text-field", {
+                        attrs: {
+                          label: "Email",
+                          rules: [_vm.rules.required, _vm.rules.email]
+                        },
+                        model: {
+                          value: _vm.email,
+                          callback: function($$v) {
+                            _vm.email = $$v
+                          },
+                          expression: "email"
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "v-btn",
+                        {
+                          attrs: {
+                            text: "",
+                            color: "primary",
+                            disabled: !_vm.valid,
+                            loading: _vm.ajaxPending
+                          },
+                          on: { click: _vm.addMember }
+                        },
+                        [
+                          _vm._v(
+                            "\n                        ok\n                    "
+                          )
+                        ]
+                      )
+                    ],
+                    1
+                  )
+                ]
+              )
+            ],
+            1
+          )
         ],
         1
       )

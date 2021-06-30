@@ -2,7 +2,9 @@
     <v-app class="mainView">
         <div>
             <v-app-bar color="primary" dark>
-                <v-toolbar-title>Team List</v-toolbar-title>
+                <v-toolbar-title>{{
+                    user ? user.name + "'s lists" : "Team List"
+                }}</v-toolbar-title>
                 <v-spacer></v-spacer>
                 <v-btn icon v-if="isLogged" @click="logout">
                     <v-icon>mdi-exit-to-app</v-icon>

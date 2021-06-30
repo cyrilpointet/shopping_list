@@ -1,19 +1,21 @@
 <template>
     <v-card class="mt-4">
         <v-card-text>
-            <v-text-field
-                v-model="name"
-                label="Ajouter un produit"
-                :rules="[rules.required]"
-            />
-            <v-btn
-                color="primary"
-                :disabled="!valid"
-                :loading="ajaxPending"
-                @click="createTeam"
-            >
-                Ok
-            </v-btn>
+            <v-form ref="form" v-model="valid">
+                <v-text-field
+                    v-model="name"
+                    label="Ajouter un produit"
+                    :rules="[rules.required]"
+                />
+                <v-btn
+                    color="primary"
+                    :disabled="!valid"
+                    :loading="ajaxPending"
+                    @click="createTeam"
+                >
+                    Ok
+                </v-btn>
+            </v-form>
         </v-card-text>
     </v-card>
 </template>

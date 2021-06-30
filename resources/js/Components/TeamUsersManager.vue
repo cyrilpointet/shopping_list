@@ -11,23 +11,25 @@
 
         <v-dialog v-model="isOpen" width="500">
             <v-card>
-                <div class="pa-2">
-                    <h4 class="text-center">Rechercher un membre</h4>
-                    <v-text-field
-                        v-model="email"
-                        label="Email"
-                        :rules="[rules.required, rules.email]"
-                    />
-                    <v-btn
-                        text
-                        color="primary"
-                        :disabled="!valid"
-                        :loading="ajaxPending"
-                        @click="addMember"
-                    >
-                        ok
-                    </v-btn>
-                </div>
+                <v-form ref="form" v-model="valid">
+                    <div class="pa-2">
+                        <h4 class="text-center">Ajouter un membre</h4>
+                        <v-text-field
+                            v-model="email"
+                            label="Email"
+                            :rules="[rules.required, rules.email]"
+                        />
+                        <v-btn
+                            text
+                            color="primary"
+                            :disabled="!valid"
+                            :loading="ajaxPending"
+                            @click="addMember"
+                        >
+                            ok
+                        </v-btn>
+                    </div>
+                </v-form>
             </v-card>
         </v-dialog>
     </div>
